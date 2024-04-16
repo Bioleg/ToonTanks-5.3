@@ -33,11 +33,9 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	// Get the EnhancedInputComponent
 	auto playerEIcomponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 
-	//Bind Move() to the mapping
-	//BindAction for enhanced system takes Action, ETriggerEvent, object, and function
-	//ETriggerEvent is an enum, where Triggered means "button is held down".
 	playerEIcomponent->BindAction(inputMoveForward, ETriggerEvent::Triggered, this, &ATank::Move);
 	playerEIcomponent->BindAction(inputTurn, ETriggerEvent::Triggered, this, &ATank::Turn);
+	playerEIcomponent->BindAction(inputFire, ETriggerEvent::Started, this, &ATank::Fire);
 }
 
 void ATank::Tick(float DeltaTime) {
