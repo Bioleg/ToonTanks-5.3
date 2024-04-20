@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BasePawn.h"
-#include "D:\UE_5.3\Engine\Plugins\EnhancedInput\Source\EnhancedInput\Public\InputActionValue.h"
+#include "InputActionValue.h"
 #include "Tank.generated.h"
 
 /**
@@ -23,6 +23,13 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void Tick(float DeltaTime) override;
+
+	void HandleDestruction();
+
+	APlayerController* GetTankPlayerController() const { return TankPlayerController; }
+
+	bool bIsHidden;
+
 
 protected:
 	// Called when the game starts or when spawned
@@ -58,5 +65,5 @@ private:
 	class UInputAction* inputFire;
 
 	// Ref - reference
-	APlayerController* PlayerControllerRef;
+	APlayerController* TankPlayerController;
 };
