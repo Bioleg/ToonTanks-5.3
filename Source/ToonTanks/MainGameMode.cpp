@@ -34,6 +34,7 @@ void AMainGameMode::HandleGameStart()
 {
     Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
     MainPlayerController = Cast<AMainPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+    StartGame();
 
     if (MainPlayerController)
     {
