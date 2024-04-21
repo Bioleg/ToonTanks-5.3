@@ -15,11 +15,20 @@ void AMainGameMode::ActorDied(AActor* DeadActor)
         if (MainPlayerController)
         {
             MainPlayerController->SetPlayerEnabledState(false);
+            
         }
+
+        GameOver(false); // The player loses
+
     }
     else if (ATurret* DestroyedTower = Cast<ATurret>(DeadActor))
     {
         DestroyedTower->HandleDestruction();
+        --TargetTowers;
+        if (TargetTowers == 0)
+        {
+            GameOver(true);
+        }
     }
 }
 
@@ -32,6 +41,7 @@ void AMainGameMode::BeginPlay()
 
 void AMainGameMode::HandleGameStart()
 {
+    TargetTowers = GetTargetTowerCount();
     Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
     MainPlayerController = Cast<AMainPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
     StartGame();
@@ -48,4 +58,13 @@ void AMainGameMode::HandleGameStart()
         );
         GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, PlayerEnableTimerDelegate, StartDelay, false);
     }
+}
+
+int32 AMainGameMode::GetTargetTowerCount()
+{
+    TArray<AActor*> Towers;
+
+    UGameplayStatics::GetAllActorsOfClass(this, ATurret::StaticClass(), Towers);
+
+    return Towers.Num();
 }
