@@ -19,7 +19,6 @@ AProjectile::AProjectile()
 
 	TrailParticles = CreateDefaultSubobject<UParticleSystemComponent>("Smoke Trail");
 	TrailParticles->SetupAttachment(RootComponent);
-
 }
 
 // Called when the game starts or when spawned
@@ -28,7 +27,6 @@ void AProjectile::BeginPlay()
 	Super::BeginPlay();
 
 	Mesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
-	UGameplayStatics::PlaySoundAtLocation(this, LaunchSound, GetActorLocation());
 }
 
 // Called every frame
@@ -57,7 +55,6 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 		if (HitParticles)
 		{
 			UGameplayStatics::SpawnEmitterAtLocation(this, HitParticles, Hit.ImpactPoint);
-			UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
 		}
 	}
 	Destroy();

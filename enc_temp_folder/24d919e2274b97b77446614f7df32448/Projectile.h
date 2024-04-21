@@ -47,10 +47,4 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	class UParticleSystemComponent* TrailParticles;
-
-	UPROPERTY(EditAnywhere, Category = "Components")
-	class USoundBase* LaunchSound;
-
-	UPROPERTY(EditAnywhere, Category = "Components")
-	USoundBase* HitSound;
 };

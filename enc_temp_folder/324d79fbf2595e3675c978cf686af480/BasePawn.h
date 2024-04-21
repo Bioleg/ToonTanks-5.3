@@ -44,7 +44,4 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Components")
 	class UParticleSystem* DeathParticles;
-
-	UPROPERTY(EditAnywhere, Category = "Components")
-	class USoundBase* DeathSound;
 };

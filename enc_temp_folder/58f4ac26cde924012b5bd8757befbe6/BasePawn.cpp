@@ -30,7 +30,6 @@ void ABasePawn::HandleDestruction()
 {
 	// TODO: Visual/sound effects
 	UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticles, GetActorLocation());
-	UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
 }
 
 
