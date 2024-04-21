@@ -40,11 +40,5 @@ void AMainGameMode::HandleGameStart()
         MainPlayerController->SetPlayerEnabledState(false);
 
         FTimerHandle PlayerEnableTimerHandle;
-        FTimerDelegate PlayerEnableTimerDelegate = FTimerDelegate::CreateUObject(
-            MainPlayerController,
-            &AMainPlayerController::SetPlayerEnabledState,
-            true
-        );
-        GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, PlayerEnableTimerDelegate, StartDelay, false);
     }
 }
