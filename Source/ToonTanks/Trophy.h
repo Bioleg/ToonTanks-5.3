@@ -15,14 +15,7 @@ public:
 	// Sets default values for this actor's properties
 	ATrophy();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* BaseMesh;
+
 };

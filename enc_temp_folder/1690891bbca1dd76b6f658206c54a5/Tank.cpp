@@ -17,8 +17,7 @@ ATank::ATank()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
 
-	TrophyAttachmentPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Trophy Attachement Point"));
-	TrophyAttachmentPoint->SetupAttachment(RootComponent);
+	TrophyAttachementPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Trophy Attachement Point"));
 
 	OnActorBeginOverlap.AddDynamic(this, &ATank::AttachTrophy);
 }
@@ -71,7 +70,6 @@ void ATank::BeginPlay()
 
 	bIsHidden = false;
 	TankPlayerController = Cast<APlayerController>(GetController());
-
 }
 
 void ATank::Move(const FInputActionValue & Value)
@@ -92,10 +90,8 @@ void ATank::Turn(const FInputActionValue& Value)
 
 void ATank::AttachTrophy(AActor* OverlappedActor, AActor* OtherActor)
 {
-	if (OtherActor->ActorHasTag("Trophy") && TrophyAttachmentPoint && OtherActor)
+	if (OtherActor->ActorHasTag("Trophy"))
 	{
-		OtherActor->AttachToComponent(TrophyAttachmentPoint, FAttachmentTransformRules::KeepRelativeTransform);
-
-		OtherActor->SetActorRelativeLocation(FVector::ZeroVector);
+		OtherActor->AttachToComponent(TrophyAttachementPoint, FAttachmentTransformRules::KeepRelativeTransform);
 	}
 }

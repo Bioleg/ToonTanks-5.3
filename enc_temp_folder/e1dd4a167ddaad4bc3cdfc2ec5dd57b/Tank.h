@@ -31,7 +31,7 @@ public:
 	bool bIsHidden;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	USceneComponent* TrophyAttachmentPoint;
+	USceneComponent* TrophyAttachementPoint;
 
 
 protected:
