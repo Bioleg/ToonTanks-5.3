@@ -2,6 +2,7 @@
 
 
 #include "Trophy.h"
+#include "MainGameMode.h"
 
 // Sets default values
 ATrophy::ATrophy()
@@ -12,3 +13,13 @@ ATrophy::ATrophy()
 	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base Mesh"));
 	RootComponent = BaseMesh; // Set the static mesh as the root component
 }
+
+void ATrophy::Destroyed()
+{
+	AMainGameMode* Gamemode = Cast<AMainGameMode>(GetWorld()->GetAuthGameMode());
+	if (Gamemode) {
+		Gamemode->GameOver(true);
+	}
+}
+
+

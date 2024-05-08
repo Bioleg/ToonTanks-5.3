@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Tank.h"
 #include "Turret.h"
+#include "Trophy.h"
 #include "MainPlayerController.h"
 
 void AMainGameMode::ActorDied(AActor* DeadActor)
@@ -12,8 +13,10 @@ void AMainGameMode::ActorDied(AActor* DeadActor)
     if (DeadActor == Tank)
     {
         Tank->HandleDestruction();
+
         if (MainPlayerController)
         {
+
             MainPlayerController->SetPlayerEnabledState(false);
             
         }
@@ -24,11 +27,22 @@ void AMainGameMode::ActorDied(AActor* DeadActor)
     else if (ATurret* DestroyedTower = Cast<ATurret>(DeadActor))
     {
         DestroyedTower->HandleDestruction();
-        --TargetTowers;
+
+        /*--TargetTowers;
         if (TargetTowers == 0)
         {
             GameOver(true);
+        }*/
+    }
+    else if (ATrophy* DestroyedTrophy = Cast<ATrophy>(DeadActor))
+    {
+        Tank->HandleDestruction();
+        if (MainPlayerController)
+        {
+            MainPlayerController->SetPlayerEnabledState(false);
+
         }
+        GameOver(false);
     }
 }
 
@@ -41,7 +55,7 @@ void AMainGameMode::BeginPlay()
 
 void AMainGameMode::HandleGameStart()
 {
-    TargetTowers = GetTargetTowerCount();
+    //TargetTowers = GetTargetTowerCount();
     Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
     MainPlayerController = Cast<AMainPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
     StartGame();
@@ -60,11 +74,11 @@ void AMainGameMode::HandleGameStart()
     }
 }
 
-int32 AMainGameMode::GetTargetTowerCount()
-{
-    TArray<AActor*> Towers;
-
-    UGameplayStatics::GetAllActorsOfClass(this, ATurret::StaticClass(), Towers);
-
-    return Towers.Num();
-}
+//int32 AMainGameMode::GetTargetTowerCount()
+//{
+//    TArray<AActor*> Towers;
+//
+//    UGameplayStatics::GetAllActorsOfClass(this, ATurret::StaticClass(), Towers);
+//
+//    return Towers.Num();
+//}

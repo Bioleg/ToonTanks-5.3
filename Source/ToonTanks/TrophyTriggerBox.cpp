@@ -2,6 +2,8 @@
 
 
 #include "TrophyTriggerBox.h"
+#include "Tank.h"
+#include "MainGameMode.h"
 
 ATrophyTriggerBox::ATrophyTriggerBox()
 {
@@ -10,8 +12,19 @@ ATrophyTriggerBox::ATrophyTriggerBox()
 
 void ATrophyTriggerBox::OnComponentBeginOverlap(class AActor* OverlappedActor, class AActor* OtherActor)
 {
-	if (OtherActor->ActorHasTag(TEXT("Player")))
+
+	ATank* Tank = Cast<ATank>(OtherActor);
+	if (Tank)
 	{
-		UE_LOG(LogTemp, Display, TEXT("Hello player dear"));
+		if (OtherActor == Tank)
+		{
+			if (Tank->bHasTrophy)
+			{
+				AMainGameMode* Gamemode = Cast<AMainGameMode>(GetWorld()->GetAuthGameMode());
+				Gamemode->GameOver(true);
+			}
+		}
+		
 	}
+
 }

@@ -18,6 +18,9 @@ public:
 
 	void ActorDied(AActor* DeadActor);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void GameOver(bool bWonGame);
+
 
 protected:
 
@@ -25,9 +28,6 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void StartGame();
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void GameOver(bool bWonGame);
 
 private:
 
@@ -38,8 +38,8 @@ private:
 
 	void HandleGameStart();
 
-	int32 TargetTowers = 0;
-	int32 GetTargetTowerCount();
+	/*int32 TargetTowers = 0;
+	int32 GetTargetTowerCount();*/
 
 	float PlayerHealth;
 };

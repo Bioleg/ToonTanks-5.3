@@ -43,7 +43,8 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	playerEIcomponent->BindAction(inputFire, ETriggerEvent::Started, this, &ATank::Fire);
 }
 
-void ATank::Tick(float DeltaTime) {
+void ATank::Tick(float DeltaTime) 
+{
 
 	Super::Tick(DeltaTime);
 
@@ -97,5 +98,7 @@ void ATank::AttachTrophy(AActor* OverlappedActor, AActor* OtherActor)
 		OtherActor->AttachToComponent(TrophyAttachmentPoint, FAttachmentTransformRules::KeepRelativeTransform);
 
 		OtherActor->SetActorRelativeLocation(FVector::ZeroVector);
+		
+		bHasTrophy = true;
 	}
 }

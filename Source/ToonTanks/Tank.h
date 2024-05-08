@@ -33,6 +33,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	USceneComponent* TrophyAttachmentPoint;
 
+	bool bHasTrophy = false;
+
 
 protected:
 	// Called when the game starts or when spawned

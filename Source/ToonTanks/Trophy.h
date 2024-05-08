@@ -18,4 +18,6 @@ public:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* BaseMesh;
 
+	virtual void Destroyed();
+
 };
