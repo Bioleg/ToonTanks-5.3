@@ -71,6 +71,8 @@ void ATank::BeginPlay()
 	Super::BeginPlay();
 
 	bIsHidden = false;
+	bIsDead = true;
+
 	TankPlayerController = Cast<APlayerController>(GetController());
 
 }

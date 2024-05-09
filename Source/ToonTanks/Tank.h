@@ -34,6 +34,7 @@ public:
 	USceneComponent* TrophyAttachmentPoint;
 
 	bool bHasTrophy = false;
+	bool bIsDead = false;
 
 
 protected:

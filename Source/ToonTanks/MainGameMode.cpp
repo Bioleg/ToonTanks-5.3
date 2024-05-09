@@ -6,6 +6,7 @@
 #include "Tank.h"
 #include "Turret.h"
 #include "Trophy.h"
+#include "FollowingTurret.h"
 #include "MainPlayerController.h"
 
 void AMainGameMode::ActorDied(AActor* DeadActor)
@@ -23,6 +24,16 @@ void AMainGameMode::ActorDied(AActor* DeadActor)
 
         GameOver(false); // The player loses
 
+    }
+    else if (AFollowingTurret* DestroyedFollowingTower = Cast<AFollowingTurret>(DeadActor))
+    {
+        DestroyedFollowingTower->HandleDestruction();
+
+        /*--TargetTowers;
+        if (TargetTowers == 0)
+        {
+            GameOver(true);
+        }*/
     }
     else if (ATurret* DestroyedTower = Cast<ATurret>(DeadActor))
     {
