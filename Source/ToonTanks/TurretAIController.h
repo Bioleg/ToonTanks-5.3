@@ -16,7 +16,6 @@ class TOONTANKS_API ATurretAIController : public AAIController
 
 public:
 
-	virtual void Tick(float DeltaTime) override;
 	bool IsDead() const;
 
 protected:
