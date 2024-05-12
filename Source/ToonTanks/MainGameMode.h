@@ -21,6 +21,12 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void GameOver(bool bWonGame);
 
+	UPROPERTY(BlueprintReadOnly)
+	int32 TowersDifference = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	float Time = 0;
+
 
 protected:
 
@@ -38,8 +44,8 @@ private:
 
 	void HandleGameStart();
 
-	/*int32 TargetTowers = 0;
-	int32 GetTargetTowerCount();*/
+	int32 TowersAmount = 0;
+	int32 GetTargetTowerCount();
 
 	float PlayerHealth;
 };

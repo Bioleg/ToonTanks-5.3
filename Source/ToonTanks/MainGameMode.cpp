@@ -27,21 +27,12 @@ void AMainGameMode::ActorDied(AActor* DeadActor)
     else if (ATurret* DestroyedTower = Cast<ATurret>(DeadActor))
     {
         DestroyedTower->HandleDestruction();
-
-        /*--TargetTowers;
-        if (TargetTowers == 0)
-        {
-            GameOver(true);
-        }*/
+        TowersDifference = TowersAmount - GetTargetTowerCount();
+        UE_LOG(LogTemp, Display, TEXT("%i"), TowersDifference);
     }
     else if (ATrophy* DestroyedTrophy = Cast<ATrophy>(DeadActor))
     {
-        Tank->HandleDestruction();
-        if (MainPlayerController)
-        {
-            MainPlayerController->SetPlayerEnabledState(false);
-
-        }
+        DestroyedTrophy->Destroy();
         GameOver(false);
     }
 }
@@ -55,7 +46,7 @@ void AMainGameMode::BeginPlay()
 
 void AMainGameMode::HandleGameStart()
 {
-    //TargetTowers = GetTargetTowerCount();
+    TowersAmount = GetTargetTowerCount();
     Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
     MainPlayerController = Cast<AMainPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
     StartGame();
@@ -74,11 +65,11 @@ void AMainGameMode::HandleGameStart()
     }
 }
 
-//int32 AMainGameMode::GetTargetTowerCount()
-//{
-//    TArray<AActor*> Towers;
-//
-//    UGameplayStatics::GetAllActorsOfClass(this, ATurret::StaticClass(), Towers);
-//
-//    return Towers.Num();
-//}
+int32 AMainGameMode::GetTargetTowerCount()
+{
+    TArray<AActor*> Towers;
+
+    UGameplayStatics::GetAllActorsOfClass(this, ATurret::StaticClass(), Towers);
+
+    return Towers.Num();
+}

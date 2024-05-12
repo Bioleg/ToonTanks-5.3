@@ -12,7 +12,6 @@ ATrophyTriggerBox::ATrophyTriggerBox()
 
 void ATrophyTriggerBox::OnComponentBeginOverlap(class AActor* OverlappedActor, class AActor* OtherActor)
 {
-
 	ATank* Tank = Cast<ATank>(OtherActor);
 	if (Tank)
 	{

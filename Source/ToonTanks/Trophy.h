@@ -19,5 +19,4 @@ public:
 	UStaticMeshComponent* BaseMesh;
 
 	virtual void Destroyed();
-
 };
