@@ -4,6 +4,8 @@
 #include "Catapult.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
+#include "BasePawn.h"
+#include "Components/CapsuleComponent.h"
 #include "MainPlayerController.h"
 
 // Sets default values
@@ -46,6 +48,34 @@ void ACatapult::Launch(class AActor* OtherActor)
 	if (bDoLaunch)
 	{
 		UE_LOG(LogTemp, Display, TEXT("Launching!"));
+		UCapsuleComponent* CatapultCaps = OtherActor->GetComponentByClass<UCapsuleComponent>();
+
+		if (CatapultCaps)
+		{
+
+			UE_LOG(LogTemp, Display, TEXT("Launching!"));
+			FVector Up = GetActorUpVector();
+			CatapultCaps->SetSimulatePhysics(true);
+			CatapultCaps->AddImpulse(Up * 500000);
+
+			FTimerHandle PlayerEnableTimerHandle;
+			FTimerDelegate PlayerEnableTimerDelegate = FTimerDelegate::CreateUObject(this, &ACatapult::TellBasePawnToDisablePhysicsOnLanding, OtherActor, CatapultCaps);
+			GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, PlayerEnableTimerDelegate, 1.f, false);
+			
+		}
+		else
+		{
+			UE_LOG(LogTemp, Display, TEXT("CatapultCaps os null"));
+		}
 	}
 }
 
+void ACatapult::TellBasePawnToDisablePhysicsOnLanding(AActor* OtherActor, UCapsuleComponent* CatapultCaps)
+{
+	ABasePawn* BasePawn = Cast<ABasePawn>(OtherActor);
+	if (BasePawn)
+	{
+		UE_LOG(LogTemp, Display, TEXT("Callinggg!"));
+		BasePawn->DisablePhysicsOnLanding(OtherActor, CatapultCaps);
+	}
+}

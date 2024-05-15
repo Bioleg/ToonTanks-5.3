@@ -3,6 +3,7 @@
 #include "BasePawn.h"
 #include "Projectile.h"
 #include "Components/CapsuleComponent.h"
+#include "TimerManager.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -60,4 +61,26 @@ void ABasePawn::Fire()
 	auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
 	Projectile->SetOwner(this);
 
+}
+
+void ABasePawn::DisablePhysicsOnLanding(class AActor* OtherActor, class UCapsuleComponent* CatapultCaps)
+{
+	UE_LOG(LogTemp, Display, TEXT("Trying to disable physics Launching!"));
+	if (floor(OtherActor->GetActorLocation().Z) != 94 || floor(OtherActor->GetActorLocation().Z == 100))
+	{
+		FTimerHandle PlayerEnableTimerHandle;
+		FTimerDelegate PlayerEnableTimerDelegate = FTimerDelegate::CreateUObject(this, &ABasePawn::DisablePhysicsOnLanding, OtherActor, CatapultCaps);
+		GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, PlayerEnableTimerDelegate, 1.f, false);
+	}
+	if (floor(OtherActor->GetActorLocation().Z) == 94)
+	{
+
+		UE_LOG(LogTemp, Display, TEXT("Disabling physics Launching!"));
+		CatapultCaps->SetSimulatePhysics(false);
+		FVector ActorLocation(OtherActor->GetActorLocation().X, OtherActor->GetActorLocation().Y, 100);
+		FRotator ActorRotation(0, OtherActor->GetActorRotation().Yaw, OtherActor->GetActorRotation().Roll);
+
+		OtherActor->SetActorLocation(ActorLocation);
+		OtherActor->SetActorRotation(ActorRotation);
+	}
 }

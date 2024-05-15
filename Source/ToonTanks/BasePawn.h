@@ -17,6 +17,8 @@ public:
 
 	void HandleDestruction();
 
+	void DisablePhysicsOnLanding(class AActor* OtherActor, class UCapsuleComponent* CatapultCaps);
+
 protected:
 	
 	void RotateTurret(FVector LookAtTarget);

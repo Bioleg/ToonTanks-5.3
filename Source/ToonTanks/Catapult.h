@@ -49,6 +49,8 @@ private:
 	UFUNCTION()
 	void Launch(class AActor* OtherActor);
 
+	void TellBasePawnToDisablePhysicsOnLanding(AActor* OtherActor, class UCapsuleComponent* CatapultCaps);
+
 	UPROPERTY()
 	bool bDoLaunch = false;
 
